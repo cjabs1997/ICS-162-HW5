@@ -34,6 +34,7 @@ public class WalkMe : MonoBehaviour
         collectibles = new List<GameObject>(GameObject.FindGameObjectsWithTag("pickup"));
         if (Input.GetKeyDown(KeyCode.E) && canPickUp && pickUpTarget != null)
         {
+            canPickUp = false;
             //pickUpTarget.GetComponent<PickUp>();
             m_Animator.SetTrigger("pickup");
             if (collectibles.Count == 1)
