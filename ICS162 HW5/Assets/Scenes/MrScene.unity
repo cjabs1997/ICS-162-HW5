@@ -12440,7 +12440,7 @@ GameObject:
   - component: {fileID: 1308387763}
   - component: {fileID: 1308387764}
   m_Layer: 0
-  m_Name: Collider
+  m_Name: Fire
   m_TagString: pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22590,6 +22590,11 @@ PrefabInstance:
       propertyPath: attackCol
       value: 
       objectReference: {fileID: 630160179}
+    - target: {fileID: 4811657698353954091, guid: 7739aeb3fee750747b1dbad00b377b74,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4857916182750288876, guid: 7739aeb3fee750747b1dbad00b377b74,
         type: 3}
       propertyPath: m_LocalRotation.x

@@ -17,7 +17,7 @@ public class WalkMe : MonoBehaviour
     private bool canChop = true;
     private bool canMove = true;
     private GameObject pickUpTarget = null;
-    List<GameObject> collectibles = new List<GameObject>();
+    private List<GameObject> collectibles = new List<GameObject>();
 
 
 
@@ -25,21 +25,29 @@ public class WalkMe : MonoBehaviour
     {
         m_Animator = this.GetComponentInChildren<Animator>();
         m_CharacterController = this.GetComponent<CharacterController>();
+
+        collectibles = new List<GameObject>(GameObject.FindGameObjectsWithTag("pickup"));
     }
 
     // Update is called once per frame
     void Update()
     {
         HandleMovement();
-        collectibles = new List<GameObject>(GameObject.FindGameObjectsWithTag("pickup"));
         if (Input.GetKeyDown(KeyCode.E) && canPickUp && pickUpTarget != null)
         {
             canPickUp = false;
             //pickUpTarget.GetComponent<PickUp>();
-            m_Animator.SetTrigger("pickup");
-            if (collectibles.Count == 1)
+            collectibles = new List<GameObject>(GameObject.FindGameObjectsWithTag("pickup"));
+            Debug.Log(pickUpTarget.gameObject.name);
+
+            if(pickUpTarget.gameObject.name.Contains("Fire") && collectibles.Count == 1)
             {
+                m_Animator.SetTrigger("pickup");
                 campFire.SetActive(true);
+            }
+            else if(!pickUpTarget.name.Contains("Fire"))
+            {
+                m_Animator.SetTrigger("pickup");
             }
         }
 
