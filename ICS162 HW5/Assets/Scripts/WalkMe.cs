@@ -9,6 +9,7 @@ public class WalkMe : MonoBehaviour
     public float rotMultiplier = 250f;
     public GameObject campFire;
     public Collider attackCol;
+    public UnityEngine.Events.UnityEvent madeFireEvent;
 
 
     private Animator m_Animator;
@@ -38,12 +39,12 @@ public class WalkMe : MonoBehaviour
             canPickUp = false;
             //pickUpTarget.GetComponent<PickUp>();
             collectibles = new List<GameObject>(GameObject.FindGameObjectsWithTag("pickup"));
-            Debug.Log(pickUpTarget.gameObject.name);
 
             if(pickUpTarget.gameObject.name.Contains("Fire") && collectibles.Count == 1)
             {
                 m_Animator.SetTrigger("pickup");
                 campFire.SetActive(true);
+                madeFireEvent.Invoke();
             }
             else if(!pickUpTarget.name.Contains("Fire"))
             {
@@ -165,12 +166,10 @@ public class WalkMe : MonoBehaviour
 
     public void Chop()
     {
-        Debug.Log("Starting CHOP");
         Collider[] targets = Physics.OverlapBox(this.transform.position, attackCol.bounds.extents * 2f, attackCol.transform.rotation);
         
         foreach(Collider c in targets)
         {
-            Debug.Log(c.name);
             if(c.CompareTag("enemy"))
             {
                 c.gameObject.GetComponent<IDamageable>().Damage();
